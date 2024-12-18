@@ -34,19 +34,18 @@ export default class Usuarios {
     });
   }
 
-  async selectOne({ id, nome }: { id: number; nome: string }) {
-    id = +id;
+  async selectOne({ id, nome }: { id: number; nome?: string }) {
     return await prisma.usuarios.findFirst({
       where: {
         id,
-        nome,
+        ...(nome && { nome }), // Filtro pelo nome apenas se ele for passado
       },
       include: {
         perfil: true,
         unidade: true,
       },
     });
-  }
+  }  
 
   async findUserByEmail(email: string) {
     return await prisma.usuarios.findUnique({
