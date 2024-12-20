@@ -1,49 +1,307 @@
-O comando `npm tsc --init` está incorreto. O correto é usar o comando `tsc --init` diretamente, pois o TypeScript Compiler (`tsc`) não é um comando do npm. Antes de rodar `tsc --init`, você precisa garantir que o TypeScript está instalado globalmente ou no seu projeto.
+Para ajudar a documentar como fazer as requisições para este projeto, aqui está uma descrição passo a passo que você pode colocar no seu arquivo `README.md`.
 
-### Passos para resolver o problema
+### Como Fazer Requisições para o Projeto
 
-1. **Instalar o TypeScript globalmente (opcional, mas recomendado)**:
-   
-   Se você deseja usar o `tsc` de qualquer lugar no seu sistema, instale o TypeScript globalmente:
+Este projeto inclui várias rotas para gerenciar usuários, roles (funções), permissões e suas associações. A seguir estão os exemplos de requisições para cada operação importante utilizando ferramentas como o Postman.
 
-   ```bash
-   npm install -g typescript
-   ```
+---
 
-2. **Instalar o TypeScript localmente no projeto**:
-   
-   Se você prefere instalar o TypeScript apenas para o seu projeto, execute:
+## Requisitos
 
-   ```bash
-   npm install typescript --save-dev
-   ```
+- [Node.js](https://nodejs.org/)
+- [Postman](https://www.postman.com/)
+- Um servidor local ou hospedado rodando o projeto
 
-3. **Inicializar o TypeScript no projeto**:
+---
 
-   Se você instalou o TypeScript globalmente, pode simplesmente executar:
+## Endpoints Disponíveis
 
-   ```bash
-   tsc --init
-   ```
+1. **Autenticação**
+2. **Usuários**
+3. **Unidades**
+4. **Perfis**
+5. **Empresas**
+6. **Roles (Funções)**
+7. **Permissões**
+8. **PermissõesRoles (Associações entre Permissões e Funções)**
+9. **UsersRoles (Associações entre Usuários e Funções)**
 
-   Se você instalou o TypeScript localmente, deve usar o npx para garantir que está usando a versão instalada no seu projeto:
+---
 
-   ```bash
-   npx tsc --init
-   ```
+## Exemplos de Requisições
 
-### Verificação
-Para garantir que o TypeScript está instalado corretamente, você pode verificar a versão:
+### 1. Autenticação
 
-```bash
-tsc -v
+#### Login
+
+**Método:** POST  
+**URL:** `http://localhost:3000/api/auth/login`  
+**Cabeçalhos:**  
+- Content-Type: `application/json`
+
+**Corpo (JSON):**
+
+```json
+{
+  "username": "seu_usuario",
+  "password": "sua_senha"
+}
 ```
 
-ou
+---
 
-```bash
-npx tsc -v
+### 2. Usuários
+
+#### Criar Usuário
+
+**Método:** POST  
+**URL:** `http://localhost:3000/api/usuarios`  
+**Cabeçalhos:**  
+- Content-Type: `application/json`
+
+**Corpo (JSON):**
+
+```json
+{
+  "nome": "Nome do Usuário",
+  "email": "email@exemplo.com",
+  "senha": "sua_senha"
+}
 ```
+
+#### Listar Usuários
+
+**Método:** GET  
+**URL:** `http://localhost:3000/api/usuarios`  
+**Cabeçalhos:**  
+- Authorization: `Bearer YOUR_JWT_TOKEN`
+
+---
+
+### 3. Unidades
+
+#### Criar Unidade
+
+**Método:** POST  
+**URL:** `http://localhost:3000/api/unidades`  
+**Cabeçalhos:**  
+- Content-Type: `application/json`
+
+**Corpo (JSON):**
+
+```json
+{
+  "nome": "Nome da Unidade"
+}
+```
+
+#### Listar Unidades
+
+**Método:** GET  
+**URL:** `http://localhost:3000/api/unidades`  
+**Cabeçalhos:**  
+- Authorization: `Bearer YOUR_JWT_TOKEN`
+
+---
+
+### 4. Perfis
+
+#### Criar Perfil
+
+**Método:** POST  
+**URL:** `http://localhost:3000/api/perfis`  
+**Cabeçalhos:**  
+- Content-Type: `application/json`
+
+**Corpo (JSON):**
+
+```json
+{
+  "nome": "Nome do Perfil"
+}
+```
+
+#### Listar Perfis
+
+**Método:** GET  
+**URL:** `http://localhost:3000/api/perfis`  
+**Cabeçalhos:**  
+- Authorization: `Bearer YOUR_JWT_TOKEN`
+
+---
+
+### 5. Empresas
+
+#### Criar Empresa
+
+**Método:** POST  
+**URL:** `http://localhost:3000/api/empresas`  
+**Cabeçalhos:**  
+- Content-Type: `application/json`
+
+**Corpo (JSON):**
+
+```json
+{
+  "nome": "Nome da Empresa"
+}
+```
+
+#### Listar Empresas
+
+**Método:** GET  
+**URL:** `http://localhost:3000/api/empresas`  
+**Cabeçalhos:**  
+- Authorization: `Bearer YOUR_JWT_TOKEN`
+
+---
+
+### 6. Roles (Funções)
+
+#### Criar Role
+
+**Método:** POST  
+**URL:** `http://localhost:3000/api/roles`  
+**Cabeçalhos:**  
+- Content-Type: `application/json`
+
+**Corpo (JSON):**
+
+```json
+{
+  "id": "admin",
+  "descricao": "Administrador do sistema"
+}
+```
+
+#### Listar Roles
+
+**Método:** GET  
+**URL:** `http://localhost:3000/api/roles`  
+**Cabeçalhos:**  
+- Authorization: `Bearer YOUR_JWT_TOKEN`
+
+#### Recuperar Role pelo ID
+
+**Método:** GET  
+**URL:** `http://localhost:3000/api/roles/{id}`  
+- Substitua `{id}` pelo ID da role que você deseja recuperar.
+
+**Cabeçalhos:**  
+- Authorization: `Bearer YOUR_JWT_TOKEN`
+
+---
+
+### 7. Permissões
+
+#### Criar Permissão
+
+**Método:** POST  
+**URL:** `http://localhost:3000/api/permissions`  
+**Cabeçalhos:**  
+- Content-Type: `application/json`
+
+**Corpo (JSON):**
+
+```json
+{
+  "name": "VIEW_USERS",
+  "description": "Permissão para visualizar usuários"
+}
+```
+
+#### Listar Permissões
+
+**Método:** GET  
+**URL:** `http://localhost:3000/api/permissions`  
+**Cabeçalhos:**  
+- Authorization: `Bearer YOUR_JWT_TOKEN`
+
+#### Recuperar Permissão pelo ID
+
+**Método:** GET  
+**URL:** `http://localhost:3000/api/permissions/{id}`  
+- Substitua `{id}` pelo ID da permissão que você deseja recuperar.
+
+**Cabeçalhos:**  
+- Authorization: `Bearer YOUR_JWT_TOKEN`
+
+---
+
+### 8. PermissõesRoles (Associações entre Permissões e Funções)
+
+#### Criar Associação de Permissão a Role
+
+**Método:** POST  
+**URL:** `http://localhost:3000/api/permissions_roles`  
+**Cabeçalhos:**  
+- Content-Type: `application/json`
+
+**Corpo (JSON):**
+
+```json
+{
+  "roleId": "admin",
+  "permissionId": "b3272093-764b-495e-a54c-8a93a86c381f"
+}
+```
+
+#### Listar Todas as Associações de Permissões a Roles
+
+**Método:** GET  
+**URL:** `http://localhost:3000/api/permissions_roles`  
+**Cabeçalhos:**  
+- Authorization: `Bearer YOUR_JWT_TOKEN`
+
+#### Recuperar Associação Específica de Permissão a Role
+
+**Método:** GET  
+**URL:** `http://localhost:3000/api/permissions_roles/{roleId}/{permissionId}`  
+- Substitua `{roleId}` pelo ID da role e `{permissionId}` pelo ID da permissão que você deseja recuperar.
+
+**Cabeçalhos:**  
+- Authorization: `Bearer YOUR_JWT_TOKEN`
+
+---
+
+### 9. UsersRoles (Associações entre Usuários e Funções)
+
+#### Criar Associação de Usuário a Role
+
+**Método:** POST  
+**URL:** `http://localhost:3000/api/users_roles`  
+**Cabeçalhos:**  
+- Content-Type: `application/json`
+
+**Corpo (JSON):**
+
+```json
+{
+  "userId": 1,  // Substitua pelo ID válido do usuário
+  "roleId": "admin"
+}
+```
+
+#### Listar Todas as Associações de Usuários a Roles
+
+**Método:** GET  
+**URL:** `http://localhost:3000/api/users_roles`  
+**Cabeçalhos:**  
+- Authorization: `Bearer YOUR_JWT_TOKEN`
+
+#### Recuperar Associação Específica de Usuário a Role
+
+**Método:** GET  
+**URL:** `http://localhost:3000/api/users_roles/{userId}/{roleId}`  
+- Substitua `{userId}` pelo ID do usuário e `{roleId}` pelo ID da role que você deseja recuperar.
+
+**Cabeçalhos:**  
+- Authorization: `Bearer YOUR_JWT_TOKEN`
+
+---
 
 ### Conclusão
-Após executar `tsc --init` ou `npx tsc --init`, um arquivo `tsconfig.json` será criado no seu projeto, que pode ser editado para configurar seu ambiente TypeScript conforme necessário.
+
+Com essas instruções, você pode criar, listar e recuperar entidades e suas associações utilizando o Postman. Certifique-se de que os endpoints estão configurados corretamente no seu servidor. Se precisar de mais assistência ou tiver dúvidas, estou à disposição! 🚀
+
+Espero que isso ajude a documentar o uso das APIs no seu projeto. Alguma outra coisa que você gostaria de adicionar ou discutir? 🎉
