@@ -8,6 +8,10 @@ import unidadesRoutes from './routes/unidades.routes';
 import perfisRoutes from './routes/perfis.routes';  // Importando as rotas de Perfis
 import empresasRoutes from './routes/empresas.routes'; // Importando as rotas de Empresas
 import authRoutes from './routes/authRoutes'; // Importando as rotas de autenticação
+import permissionsRoutes from './routes/permissionsRoutes';
+import rolesRoutes from './routes/rolesRoutes'
+import permissionsRolesRoutes from './routes/permissionsRolesRoutes';
+import usersRolesRoutes from './routes/usersRolesRoutes'
 
 dotenv.config();
 
@@ -36,6 +40,16 @@ app.use('/api', perfisRoutes);  // Definindo o caminho para perfis
 
 // Rotas de empresas
 app.use('/api', empresasRoutes);  // Definindo o caminho para empresas
+
+app.use('/api', permissionsRoutes); // Definindo o caminho para permissões
+// Rotas de permissões_roles 
+app.use('/api', permissionsRolesRoutes); 
+
+// Rotas de users_roles 
+app.use('/api', usersRolesRoutes);
+
+// Rotas de roles 
+app.use('/api', rolesRoutes); 
 
 // Middleware para tratamento de erros
 app.use(ErrorHandling);
